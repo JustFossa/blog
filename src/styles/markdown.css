@@ -1,0 +1,35 @@
+article {
+	max-width: 65ch;
+	margin: 2rem auto;
+	line-height: 1.6;
+	padding: 0 1rem;
+}
+
+article h1,
+h2,
+h3,
+h4 {
+	margin-top: 2rem;
+	font-weight: bold;
+}
+
+article blockquote {
+	margin: 1rem 0;
+	padding-left: 1rem;
+	border-left: 4px solid #ccc;
+	color: #555;
+}
+
+article pre {
+	background: #1e1e1e;
+	color: #d4d4d4;
+	padding: 1rem;
+	border-radius: 0.5rem;
+	overflow-x: auto;
+}
+
+article code {
+	padding: 0.2rem 0.4rem;
+
+	border-radius: 0.3rem;
+}

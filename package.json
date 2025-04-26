@@ -9,6 +9,28 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.7.5"
+    "@astrojs/prism": "^3.2.0",
+    "@astrojs/react": "^4.2.5",
+    "@fontsource/cascadia-code": "^4.2.1",
+    "@fontsource/twinkle-star": "^5.2.5",
+    "@radix-ui/react-slot": "^1.2.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "@tailwindcss/vite": "^4.1.4",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "astro": "^5.7.5",
+    "astro-prism": "^0.0.2",
+    "astro-theme": "^0.0.7",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^0.503.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-icons": "^5.5.0",
+    "tailwind-merge": "^3.2.0",
+    "tailwindcss": "^4.1.4"
+  },
+  "devDependencies": {
+    "tw-animate-css": "^1.2.8"
   }
 }

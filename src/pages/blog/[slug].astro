@@ -1,0 +1,30 @@
+---
+import {getCollection} from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import "../../styles/markdown.css"
+
+
+export const getStaticPaths = async () => {
+    const posts = await getCollection('blog');
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+    }));
+}
+
+const {slug} = Astro.params;
+const posts = await getCollection('blog');
+const post = posts.find((post) => post.slug === slug);
+if (!post) {
+  throw new Error(`Post not found: ${slug}`);
+}
+
+const {Content} = await post.render();
+
+
+---
+<Layout>
+<article class="prose w-full">
+    <h1 class="text-4xl">{post.data.title}</h1>
+    <Content />
+</article>
+</Layout>
