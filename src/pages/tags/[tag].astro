@@ -1,0 +1,58 @@
+---
+import BlogItem from "@/components/BlogItem.astro";
+import BreadCrumbs from "@/components/BreadCrumbs.astro";
+import Layout from "@/layouts/Layout.astro";
+import { getCollection } from "astro:content";
+
+const posts = await getCollection("blog");
+
+const tags = new Set<string>();
+posts.forEach((post) => {
+	if (post.data.tags) {
+		post.data.tags.forEach((tag) => {
+			tags.add(tag);
+		});
+	}
+});
+
+export const getStaticPaths = async () => {
+	const posts = await getCollection("blog");
+	const tags = new Set<string>();
+	posts.forEach((post) => {
+		if (post.data.tags) {
+			post.data.tags.forEach((tag) => {
+				tags.add(tag);
+			});
+		}
+	});
+	return Array.from(tags).map((tag) => ({
+		params: { tag },
+	}));
+};
+
+const { tag } = Astro.params;
+const filteredPosts = posts.filter((post) => post.data.tags?.includes(tag));
+const sortedPosts = filteredPosts.sort((a, b) => {
+	return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
+---
+
+<Layout>
+	<div class="flex flex-col gap-10 mt-10 h-full">
+		<div class="flex flex-col">
+			<BreadCrumbs
+				breadcrumbs={[
+					{ name: "Home", href: "/" },
+					{ name: `Tags`, href: `/tags` },
+					{ name: tag },
+				]}
+			/>
+			<h1 class="text-4xl">Posts with tag:{tag}</h1>
+			<p class="text-lg italic">All the articles I've posted</p>
+		</div>
+
+		<div class="flex flex-col gap-5 h-full">
+			{sortedPosts.map((post) => <BlogItem post={post} />)}
+		</div>
+	</div>
+</Layout>

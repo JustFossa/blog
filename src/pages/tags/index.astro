@@ -1,0 +1,45 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import BreadCrumbs from "@/components/BreadCrumbs.astro";
+import { RiHashtag } from "react-icons/ri";
+
+const posts = await getCollection("blog");
+
+const tags = new Set<string>();
+
+posts.forEach((post) => {
+	if (post.data.tags) {
+		post.data.tags.forEach((tag) => {
+			tags.add(tag);
+		});
+	}
+});
+const sortedTags = Array.from(tags).sort((a, b) => a.localeCompare(b));
+---
+
+<Layout>
+	<div class="flex flex-col gap-10 mt-10 h-full">
+		<div class="flex flex-col">
+			<BreadCrumbs
+				breadcrumbs={[{ name: "Home", href: "/" }, { name: `Tags` }]}
+			/>
+			<h1 class="text-4xl">Tags</h1>
+			<p class="text-lg italic">All the tags I've used</p>
+		</div>
+
+		<div class="flex flex-wrap gap-6 max-w-screen-lg overflow-clip">
+			{
+				sortedTags.map((tag) => (
+					<a
+						href={`/tags/${tag}`}
+						class="flex flex-row items-center gap-1  border-b-gray-300 hover:border-b-orange-500 text-xl text-gray-300 border-b-2 border-dashed cursor-pointer whitespace-nowrap min-w-fit hover:text-orange-500 hover:translate-y-[-2px]"
+					>
+						<RiHashtag />
+						<span>{tag}</span>
+					</a>
+				))
+			}
+		</div>
+	</div>
+</Layout>

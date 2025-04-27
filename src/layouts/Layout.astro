@@ -1,9 +1,9 @@
 ---
 import "../styles/global.css";
-import Navbar from "../components/Navbar.tsx";
-import '@fontsource/cascadia-code'
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import "@fontsource/cascadia-code";
 ---
-
 
 <!doctype html>
 <html lang="en">
@@ -12,14 +12,21 @@ import '@fontsource/cascadia-code'
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
+		<meta
+			name="description"
+			content="A personal blog about programming, technology, and more."
+		/>
+		<meta name="author" content="JustFossa" />
+		<meta name="theme-color" content="#1e293b" />
+		<meta name="keywords" content="blog, programming, technology" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
 		<title>Astro Basics</title>
 	</head>
 	<body class="h-screen dark items-center flex flex-col dark:bg-gray-900">
-		<div class="w-[35%] flex flex-col gap-5">
+		<div class="md:w-[800px] w-[80%] flex flex-col gap-5 h-full">
 			<Navbar />
 			<slot />
+			<Footer />
 		</div>
 	</body>
-
 </html>
-

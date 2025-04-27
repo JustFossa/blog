@@ -1,0 +1,45 @@
+---
+import { RiHashtag } from "react-icons/ri";
+import { FaRegCalendarAlt } from "react-icons/fa";
+export interface Props {
+	post: {
+		data: {
+			title: string;
+			date: Date;
+			description: string;
+			tags: string[];
+			isFeatured: boolean;
+		};
+		slug: string;
+	};
+}
+
+const {
+	post: {
+		data: { title, date, description, tags, isFeatured },
+		slug,
+	},
+} = Astro.props as Props;
+
+const formattedDate =
+	Intl.DateTimeFormat(`en-US`, {
+		dateStyle: `long`,
+	}).format(new Date(date)) +
+	` | ${Intl.DateTimeFormat(`en-US`, {
+		timeStyle: `short`,
+	}).format(new Date(date))}`;
+---
+
+<div class="flex flex-col gap-2">
+	<a
+		href={`/posts/${slug}`}
+		class="text-xl w-fit text-orange-500 hover:border-dashed inline-block cursor-pointer border-b-2 hover:border-b-orange-500 border-b-transparent"
+	>
+		{title}
+	</a>
+	<p class="text-gray-500 italic flex flex-row items-center gap-3">
+		<FaRegCalendarAlt />
+		{formattedDate}
+	</p>
+	<p class="font-medium cursor-default">{description}</p>
+</div>

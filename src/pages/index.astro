@@ -1,18 +1,56 @@
 ---
-import { getCollection } from 'astro:content';
-import Layout from '../layouts/Layout.astro';
-const  posts = await getCollection('blog');
+import { getCollection } from "astro:content";
+import Layout from "../layouts/Layout.astro";
+
+import Socials from "@/components/Socials.astro";
+import { FaArrowRight } from "react-icons/fa6";
+import BlogItem from "@/components/BlogItem.astro";
+import { FaRss } from "react-icons/fa";
+let posts = await getCollection("blog");
+
+const featured = posts
+	.filter((post) => post.data.isFeatured)
+	.sort((a, b) => {
+		return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+	});
+
+const recent = posts
+	.sort((a, b) => {
+		return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+	})
+	.filter((post) => !post.data.isFeatured)
+	.slice(0, 4);
 ---
 
 <Layout>
-	<h1 class="text-5xl">Hello world</h1>
-	<p class="text-2xl">Welcome to Astro!</p>
-	{
-		posts.map(post => (
-			<article>
-				<h2 class="text-3xl">{post.data.title}</h2>
-				<p class="text-xl">{post.data.description}</p>
-			</article>
-		))
-	}
+	<div
+		class="flex flex-col gap-5 mt-10 mb-10 border-b-2 border-b-orange-500 pb-10"
+	>
+		<h1 class="text-5xl font-extrabold pb-4 flex flex-row items-baseline">
+			Hey There! <a href="/sitemap-index.xml"
+				><FaRss className="text-2xl text-orange-500" /></a
+			>
+		</h1>
+		<p class="text-2xl">
+			Welcome to my little spot online! I’m a software engineer and student
+			who’s passionate about building cool things, learning new tech, and
+			sharing what I pick up along the way. This blog is a mix of projects,
+			thoughts, and lessons — everything from coding experiments to career tips
+			and random ideas I find interesting.
+		</p>
+		<Socials />
+	</div>
+	<div class="flex flex-col gap-5 mb-10 border-b-2 border-b-orange-500 pb-10">
+		<h1 class="text-4xl font-bold pb-4">Featured</h1>
+		{featured.map((post) => <BlogItem post={post} />)}
+	</div>
+	<div class="flex flex-col gap-5">
+		<h1 class="text-4xl font-bold pb-4">Recent Posts</h1>
+		{recent.map((post) => <BlogItem post={post} />)}
+		<a
+			href="/posts"
+			class="text-lg hover:text-orange-500 text-white hover:border-dashed flex flex-row items-center gap-4 self-center cursor-pointer w-auto"
+			>See all posts <FaArrowRight /></a
+		>
+	</div>
 </Layout>

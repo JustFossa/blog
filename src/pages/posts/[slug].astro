@@ -1,0 +1,63 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import "../../styles/markdown.css";
+import { IoChevronBackOutline } from "react-icons/io5";
+import { RiHashtag } from "react-icons/ri";
+
+export const getStaticPaths = async () => {
+	const posts = await getCollection("blog");
+	return posts.map((post) => ({
+		params: { slug: post.slug },
+	}));
+};
+
+const { slug } = Astro.params;
+const posts = await getCollection("blog");
+const post = posts.find((post) => post.slug === slug);
+if (!post) {
+	throw new Error(`Post not found: ${slug}`);
+}
+
+const { Content } = await post.render();
+
+const formattedDate =
+	Intl.DateTimeFormat(`en-US`, {
+		dateStyle: `long`,
+	}).format(new Date(post.data.date)) +
+	` | ${Intl.DateTimeFormat(`en-US`, {
+		timeStyle: `short`,
+	}).format(new Date(post.data.date))}`;
+---
+
+<Layout>
+	<div class="w-full flex flex-col gap-2">
+		<a href="/" class="flex flex-rowtransition-colors duration-200">
+			<span
+				class="text-white flex flex-row items-center gap-2 hover:text-gray-400"
+				><IoChevronBackOutline />Go back</span
+			>
+		</a>
+		<h1 class="text-3xl text-orange-500">{post.data.title}</h1>
+		<p class="text-gray-500 italic flex flex-row items-center gap-3">
+			<FaRegCalendarAlt />
+			{formattedDate}
+		</p>
+		<article class="flex flex-col">
+			<Content />
+			<div class="flex flex-row gap-6 mt-20">
+				{
+					post.data.tags.map((tag) => (
+						<a
+							href={`/tags/${tag}`}
+							class=" text-gray-300 border-dashed cursor-pointer border-b-2 hover:text-orange-500 hover:translate-y-[-2px] flex flex-row items-center hover:border-b-orange-500 border-b-gray-300 w-auto"
+						>
+							<RiHashtag /> {tag}
+						</a>
+					))
+				}
+			</div>
+		</article>
+	</div>
+</Layout>
