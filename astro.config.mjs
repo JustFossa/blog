@@ -30,4 +30,5 @@ export default defineConfig({
 			wrap: true,
 		},
 	},
+	outDir: "/var/www/blog",
 });
