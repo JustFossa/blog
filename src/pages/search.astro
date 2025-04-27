@@ -1,0 +1,27 @@
+---
+import { SearchBar } from "@/components/Search";
+import Layout from "../layouts/Layout.astro";
+import { getCollection } from "astro:content";
+import { sequence } from "astro:middleware";
+import BreadCrumbs from "@/components/BreadCrumbs.astro";
+
+const posts = await getCollection("blog");
+
+const searchList = posts.map((post) => ({
+	slug: post.slug,
+	title: post.data.title,
+	description: post.data.description,
+	data: post.data,
+}));
+---
+
+<Layout>
+	<div class="flex flex-col gap-5">
+		<BreadCrumbs
+			breadcrumbs={[{ name: "Home", href: "/" }, { name: "Search" }]}
+		/>
+		<h1 class="text-4xl font-bold">Search</h1>
+		<p class="italic">Search any article...</p>
+		<SearchBar client:load searchList={searchList} />
+	</div>
+</Layout>

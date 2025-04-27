@@ -14,11 +14,15 @@ export const getStaticPaths = async () => {
 };
 
 const { slug } = Astro.params;
-const posts = await getCollection("blog");
-const post = posts.find((post) => post.slug === slug);
-if (!post) {
-	throw new Error(`Post not found: ${slug}`);
+let posts = await getCollection(
+	"blog",
+	({ slug: postSlug }) => postSlug === slug
+);
+
+if (posts.length === 0) {
+	throw new Error(`Post not found`);
 }
+const post = posts[0];
 
 const { Content } = await post.render();
 

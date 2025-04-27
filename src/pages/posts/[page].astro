@@ -29,13 +29,13 @@ const totalPages = Math.ceil(posts.length / itemsPerPage);
 
 <Layout>
 	<div class="flex flex-col gap-10 mt-10 h-full">
+		<BreadCrumbs
+			breadcrumbs={[
+				{ name: "Home", href: "/" },
+				{ name: `Posts (Page ${pageNumber})` },
+			]}
+		/>
 		<div class="flex flex-col">
-			<BreadCrumbs
-				breadcrumbs={[
-					{ name: "Home", href: "/" },
-					{ name: `Posts (Page ${pageNumber})` },
-				]}
-			/>
 			<h1 class="text-4xl">Posts</h1>
 			<p class="text-lg italic">All the articles I've posted</p>
 		</div>

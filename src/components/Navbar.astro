@@ -4,7 +4,9 @@ import { FaSearch } from "react-icons/fa";
 const { pathname } = new URL(Astro.request.url);
 ---
 
-<div class="flex p-8 w-full items-center justify-center border-b border-b-orange-500">
+<div
+	class="flex md:p-8 py-8 px-2 w-full items-center justify-center border-b border-b-orange-500"
+>
 	<nav class="flex flex-row justify-between items-center w-full">
 		<a href="/" class="md:text-4xl text-2xl mr-auto"> JustFossa </a>
 		<div class="flex flex-row gap-6 items-center">
@@ -26,9 +28,13 @@ const { pathname } = new URL(Astro.request.url);
 			>
 				About
 			</a>
-			<FaSearch
-				className="text-lg text-white hover:text-orange-500 cursor-pointer"
-			/>
+
+			<a
+				href="/search"
+				class={`${pathname == "/search" && "border-dashed border-b-white hover:border-b-orange-500"} border-b-2 border-transparent text-lg hover:text-orange-500 cursor-pointer`}
+			>
+				<FaSearch />
+			</a>
 		</div>
 	</nav>
 </div>
