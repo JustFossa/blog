@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 import "@fontsource/ibm-plex-sans";
 import "@fontsource/ibm-plex-mono";
+import {ClientRouter} from "astro:transition"
 ---
 
 <!doctype html>
@@ -22,6 +23,7 @@ import "@fontsource/ibm-plex-mono";
 		<meta name="keywords" content="blog, programming, technology" />
 		<link rel="sitemap" href="/sitemap-index.xml" />
 		<title>JustFossa's Blog</title>
+<ClientRouter />
 	</head>
 	<body
 		class="h-screen dark flex flex-row justify-center items-center dark:bg-gray-900"
