@@ -6,6 +6,7 @@
 		"jsx": "react-jsx",
 		"jsxImportSource": "react",
 		"baseUrl": ".",
+		"outDir": "/var/www/blog",
 		"paths": {
 			"@/*": ["./src/*"]
 		}
