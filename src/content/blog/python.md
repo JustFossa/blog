@@ -11,6 +11,8 @@ Python is one of the most beginner-friendly programming languages. It’s simple
 
 > Python is a great choice for those starting their programming journey due to its clear syntax and strong community support.
 
+![Python Logo](@/assets/images/python.png)
+
 # Contents
 
 # Code Snippet
